@@ -3,8 +3,6 @@ package com.online_marketplace.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.online_marketplace.exception.UserAlreadyExistsException;
 import com.online_marketplace.exception.UserNotFoundException;
 import com.online_marketplace.model.LocalUser;
-
 import com.online_marketplace.repository.RoleRepository;
 import com.online_marketplace.repository.UserRespository;
 import com.online_marketplace.request.RegisteRequestBody;
@@ -26,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService{
+public class UserService{
     private final UserRespository userRespository;
     private final PasswordEncoder encryptionService;
     private final RoleRepository roleRepository;
@@ -86,13 +83,4 @@ public class UserService implements UserDetailsService{
         userRespository.deleteById(id);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LocalUser user = userRespository.findByEmailIgnoreCase(username).orElseThrow(()->
-        new UsernameNotFoundException("User details not found for the user" + username));
-        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getRole().getName().name()));
-        //List<GrantedAuthority> authorities = user.getAuthorities().stream().map(authority -> new
-                        //SimpleGrantedAuthority(authority.get())).collect(Collectors.toList());
-        return new User(user.getEmail(), user.getPassword(), authorities);
-    }
 }

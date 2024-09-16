@@ -47,9 +47,6 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Float price;
 
-    @Column(name = "quntity", nullable = false)
-    private Float quntity;
-
     @Column(name = "imageName", nullable = false, unique = true)
     private String imageName;
 

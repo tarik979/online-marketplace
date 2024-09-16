@@ -13,7 +13,6 @@ public class ProductResponse {
     private String shortDescription;
     private String longDescription;
     private Float price;
-    private Float quntity;
     private Long categoryId;
     private Long sallerId;
     private String Imagename;

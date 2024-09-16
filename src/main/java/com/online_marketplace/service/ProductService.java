@@ -16,7 +16,6 @@ import com.online_marketplace.model.Category;
 import com.online_marketplace.model.LocalUser;
 import com.online_marketplace.model.Product;
 import com.online_marketplace.repository.ProductRepository;
-import com.online_marketplace.utils.ImageUtils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -24,7 +24,6 @@ import com.online_marketplace.mapper.ProductMapper;
 import com.online_marketplace.model.Product;
 import com.online_marketplace.response.ProductResponse;
 import com.online_marketplace.service.ProductService;
-import com.online_marketplace.utils.ImageUtils;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
@@ -61,7 +60,6 @@ public class ProductController {
                 product.getShortDescription(),
                 product.getLongDescription(),
                 product.getPrice(),
-                product.getQuntity(),
                 product.getCategory().getCategoryID(),
                 product.getUser().getUserId(),
                 product.getImageName(),
@@ -92,7 +90,6 @@ public class ProductController {
             product.getShortDescription(),
             product.getLongDescription(),
             product.getPrice(),
-            product.getQuntity(),
             product.getCategory().getCategoryID(),
             product.getUser().getUserId(),
             product.getImageName(),

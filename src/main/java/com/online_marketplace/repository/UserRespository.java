@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.online_marketplace.model.LocalUser;
 
+
 @Repository
 public interface UserRespository extends JpaRepository<LocalUser, Long>{
     Optional<LocalUser> findByEmailIgnoreCase(String Email);
+    boolean existsByEmail(String email);
 }

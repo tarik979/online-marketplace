@@ -5,7 +5,6 @@ import com.online_marketplace.model.Category;
 import com.online_marketplace.dto.ProductDto;
 import com.online_marketplace.model.LocalUser;
 import com.online_marketplace.model.Product;
-import com.online_marketplace.utils.ImageUtils;
 
 public class ProductMapper {
     public static ProductDto  mappToProductDto(Product product){
@@ -15,7 +14,6 @@ public class ProductMapper {
         dto.setShortDescription(product.getShortDescription());
         dto.setLongDescription(product.getLongDescription());
         dto.setPrice(product.getPrice());
-        dto.setQuntity(product.getQuntity());
         dto.setImageName(product.getImageName());
         dto.setImageType(product.getImageType());
         dto.setImageData(product.getImageData());
@@ -33,7 +31,6 @@ public class ProductMapper {
         product.setShortDescription(dto.getShortDescription());
         product.setLongDescription(dto.getLongDescription());
         product.setPrice(dto.getPrice());
-        product.setQuntity(dto.getQuntity());
         product.setImageName(dto.getImageName());
         product.setImageType(dto.getImageType());
         product.setImageData(/*ImageUtils.decompresser(*/dto.getImageData())/*)*/;
