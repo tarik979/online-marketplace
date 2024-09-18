@@ -30,9 +30,6 @@ public class OrderDetails implements Serializable{
     @Column(name = "order_id", nullable = false)
     private Long orderId;
 
-    @Column(name = "quntity", nullable = false)
-    private Float quntity;
-
     @Column(name = "status", nullable = false)
     private String status;
 
@@ -52,9 +49,8 @@ public class OrderDetails implements Serializable{
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    public OrderDetails(Float quntity, String status, LocalUser buyer, LocalUser seller, String location,
+    public OrderDetails(String status, LocalUser buyer, LocalUser seller, String location,
             Product product) {
-        this.quntity = quntity;
         this.status = status;
         this.buyer = buyer;
         this.seller = seller;

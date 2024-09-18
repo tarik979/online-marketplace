@@ -53,7 +53,7 @@ public class Product {
     @Column(name ="imageType", nullable =  false)
     private String imageType;
 
-    @Column(name = "imageData", columnDefinition = "BLOB")
+    @Column(name = "imageData")
     @Lob
     private byte[] imageData;
     

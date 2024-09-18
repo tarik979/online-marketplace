@@ -9,7 +9,6 @@ public class OrderDetailsMapper {
     public static OrderDetailsDto mappToDto(OrderDetails orderDetails){
         OrderDetailsDto dto = new OrderDetailsDto();
         dto.setOrderId(orderDetails.getOrderId());
-        dto.setQuntity(orderDetails.getQuntity());
         dto.setStatus(orderDetails.getStatus());
         dto.setBuyer_id(orderDetails.getBuyer().getUserId());
         dto.setSeller_id(orderDetails.getSeller().getUserId());
@@ -25,7 +24,6 @@ public class OrderDetailsMapper {
         if (setId) {
             orderDetails.setOrderId(dto.getOrderId());
         }
-        orderDetails.setQuntity(dto.getQuntity());
         orderDetails.setStatus(dto.getStatus());
         orderDetails.setBuyer(buyer);
         orderDetails.setSeller(seller);

@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 public class OrderDetailsDto {
     private long orderId;
-    private Float quntity;
     private String status;
     private long buyer_id;
     private long seller_id;

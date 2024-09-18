@@ -64,13 +64,18 @@ public class ProductService{
     }
 
     public Product updateProduct(ProductDto product, MultipartFile image) throws IOException{
-        if(productRepository.findById(product.getId()) != null){
+        if(productRepository.findById(product.getId()).isPresent()){
+            Product oldProduct = productRepository.findById(product.getId()).get();
             if (image != null) {
                 product.setImageName(image.getOriginalFilename());
                 product.setImageType(image.getContentType());
                 product.setImageData(/*ImageUtils.compressImage(*/image.getBytes()/* )*/);
+            }else{
+                product.setImageName(oldProduct.getImageName());
+                product.setImageType(oldProduct.getImageType());
+                product.setImageData(oldProduct.getImageData());
             }
-            if (categoryService.findCategoryById(product.getCategoryId()) != null) {
+            if (categoryService.findCategoryById(product.getCategoryId()) !=  null) {
                 Category category =  categoryService.findCategoryById(product.getCategoryId());
                 if (userService.findUserById(product.getSellerId()) != null) {
                     LocalUser seller = userService.findUserById(product.getSellerId());

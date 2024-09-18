@@ -61,10 +61,10 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizeHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/auth/**","/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                        auth/* .requestMatchers("/auth/**","/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .requestMatchers("/products/find/**").hasRole("SELLER")
-                        .anyRequest().authenticated()
-
+                        .anyRequest().authenticated()*/
+                        .anyRequest().permitAll()
                 );
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

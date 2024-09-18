@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @RequestMapping("/products")
 @SecurityRequirement(name = "bearerAuth")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 public class ProductController {
     private final ProductService productService;
 
@@ -103,7 +105,7 @@ public class ProductController {
     }
 
     @PutMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ProductDto> updateProduct(@RequestPart("product") ProductDto product, @RequestPart("image") MultipartFile image) throws IOException{
+    public ResponseEntity<ProductDto> updateProduct(@RequestPart("product") ProductDto product, @RequestPart(value = "image", required = false) MultipartFile image) throws IOException{
         Product updatedProduct = productService.updateProduct(product, image);
         return new ResponseEntity<>(ProductMapper.mappToProductDto(updatedProduct), HttpStatus.OK);
     }
