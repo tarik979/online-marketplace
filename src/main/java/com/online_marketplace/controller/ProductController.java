@@ -23,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.online_marketplace.dto.ProductDto;
 import com.online_marketplace.mapper.ProductMapper;
 import com.online_marketplace.model.Product;
+import com.online_marketplace.repository.ProductRepository;
 import com.online_marketplace.response.ProductResponse;
 import com.online_marketplace.service.ProductService;
 
@@ -34,9 +35,11 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 public class ProductController {
     private final ProductService productService;
+    private final ProductRepository productRepository;
 
-    public ProductController(ProductService productService){
+    public ProductController(ProductService productService, ProductRepository productRepository){
         this.productService = productService;
+        this.productRepository = productRepository;
     }
     @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ProductDto> addProduct(@RequestPart("product") ProductDto product, @RequestPart("image") MultipartFile image) throws IOException{
@@ -62,6 +65,8 @@ public class ProductController {
                 product.getShortDescription(),
                 product.getLongDescription(),
                 product.getPrice(),
+                product.isSold(),
+                product.isDelete(),
                 product.getCategory().getCategoryID(),
                 product.getUser().getUserId(),
                 product.getImageName(),
@@ -73,6 +78,42 @@ public class ProductController {
         }).collect(Collectors.toList());
         if (allProducts.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(allProducts, HttpStatus.OK);
+    }
+
+    @GetMapping("/sold/{id}")
+    public ResponseEntity<ProductDto> markAsSold(@PathVariable("id")long id){
+        Product product =  productService.findProductById(id);
+        if (product != null) {
+            product.setSold(true);
+            productRepository.save(product);
+            return new ResponseEntity<>(ProductMapper.mappToProductDto(product), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/unsold/{id}")
+    public ResponseEntity<ProductDto> unmarkAsSold(@PathVariable("id")long id){
+        Product product =  productService.findProductById(id);
+        if (product != null) {
+            product.setSold(false);
+            productRepository.save(product);
+            return new ResponseEntity<>(ProductMapper.mappToProductDto(product), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/deleted/{id}")
+    public ResponseEntity<ProductDto> deleted(@PathVariable("id")long id){
+        Product product =  productService.findProductById(id);
+        if (product != null) {
+            product.setDelete(!product.isDelete());
+            productRepository.save(product);
+            return new ResponseEntity<>(ProductMapper.mappToProductDto(product), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
     
@@ -92,6 +133,8 @@ public class ProductController {
             product.getShortDescription(),
             product.getLongDescription(),
             product.getPrice(),
+            product.isSold(),
+            product.isDelete(),
             product.getCategory().getCategoryID(),
             product.getUser().getUserId(),
             product.getImageName(),

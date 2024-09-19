@@ -10,7 +10,9 @@ public class ProductMapper {
     public static ProductDto  mappToProductDto(Product product){
         ProductDto dto = new ProductDto();
         dto.setId(product.getProductId());
+        dto.setSold(product.isSold());
         dto.setName(product.getName());
+        dto.setDelete(product.isDelete());
         dto.setShortDescription(product.getShortDescription());
         dto.setLongDescription(product.getLongDescription());
         dto.setPrice(product.getPrice());
@@ -31,7 +33,9 @@ public class ProductMapper {
         product.setShortDescription(dto.getShortDescription());
         product.setLongDescription(dto.getLongDescription());
         product.setPrice(dto.getPrice());
+        product.setDelete(dto.isDelete());
         product.setImageName(dto.getImageName());
+        product.setSold(dto.isSold());
         product.setImageType(dto.getImageType());
         product.setImageData(/*ImageUtils.decompresser(*/dto.getImageData())/*)*/;
         product.setCategory(category);

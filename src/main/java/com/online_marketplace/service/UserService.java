@@ -3,12 +3,6 @@ package com.online_marketplace.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,20 +36,6 @@ public class UserService{
         user.setRole(roleRepository.findByName(registeRequestBody.getRole()));
         return userRespository.save(user);
     }
-
-    // public String loginUser(LoginRequestBody loginRequestBody){
-    //     Optional<LocalUser> opuser = userRespository.findByEmailIgnoreCase(loginRequestBody.getEmail());
-    //     if (!opuser.isPresent()) {
-    //         return null;
-    //     }
-
-    //     LocalUser user = opuser.get();
-    //     if (!encryptionService.matches(loginRequestBody.getPassword(), user.getPassword())) {
-    //         return null;
-    //     }
-
-    //     return jwtService.generateToken(user, null);
-    // }
 
     public List<LocalUser> findAllUsers() {
         return userRespository.findAll();

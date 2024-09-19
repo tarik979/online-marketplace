@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -47,6 +48,11 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Float price;
 
+    @Column(name = "sold", nullable = false)
+    private boolean sold;
+
+    private boolean delete;
+
     @Column(name = "imageName", nullable = false, unique = true)
     private String imageName;
 
@@ -69,8 +75,8 @@ public class Product {
     @JsonIgnore
     private LocalUser user;
     
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    List<OrderDetails> orderDetails;
+    private List<OrderDetails> orderDetails;
     
 }

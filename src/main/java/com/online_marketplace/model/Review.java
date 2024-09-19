@@ -34,7 +34,7 @@ public class Review {
 
     private String comment;
 
-    private Date createdAt;
+    private Date createdAt = new Date();;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)

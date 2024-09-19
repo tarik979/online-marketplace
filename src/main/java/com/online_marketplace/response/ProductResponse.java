@@ -13,6 +13,8 @@ public class ProductResponse {
     private String shortDescription;
     private String longDescription;
     private Float price;
+    private boolean sold;
+    private boolean delete;
     private Long categoryId;
     private Long sallerId;
     private String Imagename;

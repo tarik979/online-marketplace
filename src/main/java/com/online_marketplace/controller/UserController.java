@@ -36,7 +36,6 @@ public class UserController {
     }
 
     @GetMapping("/find/{id}")
-    @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<LocalUser> findUserById(@PathVariable Long id){
         LocalUser user = userService.findUserById(id);
         if (user == null) {
@@ -58,9 +57,6 @@ public class UserController {
         userService.deleteUserById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    
-
 
 
 }

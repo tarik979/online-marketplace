@@ -17,6 +17,8 @@ public class ProductDto {
     private String shortDescription;
     private String longDescription;
     private Float price;
+    private boolean sold;
+    private boolean delete;
     @JsonIgnore
     private String imageName;
     @JsonIgnore
